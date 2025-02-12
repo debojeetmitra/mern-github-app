@@ -16,26 +16,13 @@ const HomePage = () => {
   const getUserProfileAndRepos = useCallback(async (username = "debojeetmitra") => {
     setLoading(true); 
     try {
-      const userRes = await fetch(`https://api.github.com/users/${username}`,{
-        headers: {
-          authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY}`,
-        },
-      });
+     
+      const res = await fetch(`http://localhost:5000/api/users/profile/${username}`);
+      const {repos,userProfile} = await res.json();
 
-      if (!userRes.ok) throw new Error("User not found!");
-      const userProfile = await userRes.json();
-      setUserProfile(userProfile);
-
-      if (!userProfile.repos_url) throw new Error("Repos not found!");
-
-      const repoRes = await fetch(userProfile.repos_url);
-      
-      if (!repoRes.ok) throw new Error("Failed to fetch repos!");
-      const repos = await repoRes.json();
       repos.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
       setRepos(repos);
-
-      
+      setUserProfile(userProfile);
 
       return {userProfile, repos}
     } catch (error) {
