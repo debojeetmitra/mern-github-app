@@ -22,10 +22,10 @@ const __dirname = path.resolve();
 console.log("dirname", __dirname);
 
 // Configure CORS to allow frontend from localhost:3000
-app.use(cors({
-  origin: "http://localhost:3000",  // Update this with your frontend URL
-  credentials: true,               // Allows sending cookies with requests
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",  // Update this with your frontend URL
+//   credentials: true,               // Allows sending cookies with requests
+// }));
 
 // Session and Passport.js setup
 app.use(session({
